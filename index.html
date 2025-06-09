@@ -7,6 +7,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
   <script src="https://unpkg.com/@ungap/custom-elements-builtin"></script>
   <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       /* Light Theme (Default) */
@@ -38,6 +40,14 @@
       --sunset-header: #fecdd3;  /* Light pink header */
       --sunset-text: #9f1239;
       --sunset-hover: #fda4af;
+      
+      /* Opera GX colors */
+      --operagx-primary: #ff0d45;
+      --operagx-secondary: #1f1f27;
+      --operagx-background: #17171c;
+      --operagx-text: #ffffff;
+      --operagx-accent: #ff2d55;
+      --operagx-hover: #2a2a33;
     }
 
     /* Theme Classes */
@@ -47,8 +57,8 @@
     }
 
     .theme-dark {
-      background-color: var(--dark-bg);
-      color: var(--dark-text);
+      background-color: var(--operagx-background);
+      color: var(--operagx-text);
     }
 
     .theme-ocean {
@@ -79,7 +89,8 @@
 
     /* Theme-specific active tab styles */
     .theme-dark .tab-active {
-      background-color: var(--dark-bg);
+      background-color: var(--operagx-background);
+      border-top: 2px solid var(--operagx-primary);
     }
 
     .theme-ocean .tab-active {
@@ -118,7 +129,7 @@
 
     .theme-dark header,
     .theme-dark #tab-bar {
-      background-color: var(--dark-header);
+      background-color: var(--operagx-secondary);
     }
 
     .theme-ocean header,
@@ -138,7 +149,7 @@
 
     /* Text Colors for themes */
     .theme-dark .text-gray-600 {
-      color: var(--dark-text);
+      color: var(--operagx-text);
     }
 
     .theme-ocean .text-gray-600 {
@@ -155,23 +166,23 @@
 
     /* Update dark theme styles */
     .theme-dark .tab-hover {
-      background-color: #35363a;
+      background-color: var(--operagx-hover);
     }
 
     .theme-dark .tab-active {
-      background-color: #202124;
+      background-color: var(--operagx-background);
     }
 
     .theme-dark .bg-white {
-      background-color: #35363a;
+      background-color: var(--operagx-secondary);
     }
 
     .theme-dark #omnibox {
-      color: #e8eaed;
+      color: var(--operagx-text);
     }
 
     .theme-dark .hover\:bg-gray-300:hover {
-      background-color: #3c4043;
+      background-color: var(--operagx-hover);
     }
 
     .theme-dark .text-gray-400,
@@ -183,17 +194,17 @@
     .theme-dark #history-panel,
     .theme-dark #bookmark-panel,
     .theme-dark #settings-panel {
-      background-color: #202124;
-      border-color: #35363a;
+      background-color: var(--operagx-background);
+      border-color: var(--operagx-secondary);
     }
 
     .theme-dark .hover\:bg-gray-100:hover {
-      background-color: #35363a;
+      background-color: var(--operagx-secondary);
     }
 
     /* Add these styles to the existing CSS */
     .theme-dark .bg-light {
-      background-color: var(--dark-bg);
+      background-color: var(--operagx-background);
     }
 
     .theme-ocean .bg-light {
@@ -487,7 +498,7 @@
 
     /* Dark theme adjustments */
     .theme-dark #settings-panel {
-      background-color: #35363a;
+      background-color: var(--operagx-background);
       box-shadow: -4px 0 15px rgba(0,0,0,0.3);
     }
     
@@ -536,7 +547,7 @@
     }
 
     .dark-preview {
-        background: linear-gradient(to right, #202124 50%, #35363a 50%);
+        background: linear-gradient(to right, var(--operagx-background) 50%, var(--operagx-secondary) 50%);
     }
 
     .ocean-preview {
@@ -594,7 +605,7 @@
 
     /* Update mobile history view */
     .theme-dark #history-panel {
-      background-color: var(--dark-bg);
+      background-color: var(--operagx-background);
     }
 
     /* Hide tab bar on mobile devices */
@@ -690,9 +701,9 @@
     }
 
     .theme-dark #custom-context-menu {
-      background-color: #35363a;
+      background-color: var(--operagx-secondary);
       border-color: #4a4a4a;
-      color: #e8eaed;
+      color: var(--operagx-text);
     }
 
     #custom-context-menu .context-menu-item {
@@ -715,44 +726,393 @@
       width: 20px;
       text-align: center;
     }
+
+    /* Sidebar styles */
+    .gx-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 60px;
+        height: 100vh;
+        background-color: var(--operagx-secondary);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 1rem;
+        transition: width 0.3s ease;
+    }
+
+    .gx-sidebar:hover {
+        width: 200px;
+    }
+
+    .gx-sidebar-item {
+        width: 100%;
+        padding: 1rem;
+        color: var(--operagx-text);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .gx-sidebar-item:hover {
+        background-color: var(--operagx-hover);
+    }
+
+    .gx-sidebar-item i {
+        min-width: 25px;
+        margin-right: 1rem;
+        color: var(--operagx-primary);
+    }
+
+    .gx-sidebar-item span {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .gx-sidebar:hover .gx-sidebar-item span {
+        opacity: 1;
+    }
+
+    /* Adjust main content for sidebar */
+    body > header,
+    #tab-bar,
+    main {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    /* Update address bar for gaming look */
+    .flex-1.bg-white.rounded-full {
+        background: var(--operagx-secondary);
+        border: 1px solid var(--operagx-primary);
+    }
+
+    #omnibox {
+        color: var(--operagx-text);
+        background: transparent;
+    }
+
+    /* Gaming-style buttons */
+    button {
+        transition: all 0.2s ease;
+    }
+
+    button:hover {
+        color: var(--operagx-primary);
+        transform: scale(1.05);
+    }
+
+    /* Apply gaming font to all text */
+    body {
+        font-family: 'Play', 'Rajdhani', sans-serif;
+    }
+
+    /* Performance Panel Slider Styles */
+    input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+        background: #35363a;
+        height: 8px;
+        border-radius: 4px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        margin-top: -4px;
+        background-color: #ff0d45;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+    }
+
+    input[type="range"]:focus {
+        outline: none;
+    }
+
+    input[type="range"]:focus::-webkit-slider-thumb {
+        border: 2px solid #ffffff;
+    }
   </style>
 </head>
-<body class="bg-gray-100 h-screen flex flex-col theme-light">
+<body class="bg-gray-100 h-screen flex flex-col theme-dark">
   <!-- Main Menu Page -->
-  <div id="main-menu" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-start overflow-y-auto">
-    <div class="max-w-4xl w-full px-4 text-center py-8">
-      <img src="/85d32b57-e47e-4306-aa45-33394b770c89.png" alt="SwiftGuard Logo" class="w-32 h-32 mx-auto mb-8">
-      <h1 class="text-4xl font-bold mb-4">Welcome to SwiftGuard</h1>
-      <h2 class="text-2xl mb-8">The Privacy-Focused Browser</h2>
-      
-      <!-- New note about iframe limitations -->
-      <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-8" role="alert">
-        <p class="font-bold">Compatibility Note:</p>
-        <p>Some websites may not load correctly due to iframe restrictions. This is beyond our control.</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <div class="text-center p-4">
-          <i class="fas fa-shield-alt text-4xl text-blue-600 mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Private Search</h3>
-          <p class="text-gray-600">Search and browse privately. No tracking, no search history.</p>
-        </div>
-        <div class="text-center p-4">
-          <i class="fas fa-rocket text-4xl text-green-600 mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
-          <p class="text-gray-600">Experience faster browsing with built-in tracker blocking.</p>
-        </div>
-        <div class="text-center p-4">
-          <i class="fas fa-lock text-4xl text-purple-600 mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Enhanced Security</h3>
-          <p class="text-gray-600">Built-in protection against malware and tracking.</p>
-        </div>
-      </div>
-
-      <button onclick="startBrowser()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-colors duration-200 mb-8">
-        Start Using SwiftGuard
-      </button>
+  <div id="main-menu" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-start overflow-y-auto">
+    <!-- Initial Animation -->
+    <div id="animation-container" class="w-full h-screen flex items-center justify-center">
+        <img src="/85d32b57-e47e-4306-aa45-33394b770c89.png" alt="SwiftGuard Logo" 
+             class="w-48 h-48 animate-pulse">
     </div>
+
+    <!-- Terms Agreement -->
+    <div id="terms-container" class="max-w-4xl w-full px-4 text-center py-8 hidden">
+        <img src="/85d32b57-e47e-4306-aa45-33394b770c89.png" alt="SwiftGuard Logo" class="w-32 h-32 mx-auto mb-8">
+        <h1 class="text-4xl font-bold mb-4 text-white">Terms of Service</h1>
+        <div class="bg-gray-900 p-6 rounded-lg mb-8 text-left text-gray-300 h-64 overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4">SwiftGuard Browser Terms</h2>
+            <p class="mb-4">By using SwiftGuard Browser, you agree to the following terms:</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Your privacy is our priority. We do not collect or store any personal data.</li>
+                <li>Some websites may not load properly due to iframe restrictions.</li>
+                
+                <li>SwiftGuard is provided "as is" without any warranties.</li>
+                <li>We reserve the right to modify these terms at any time.</li>
+            </ul>
+        </div>
+        <button onclick="acceptTerms()" 
+                class="bg-[#ff0d45] hover:bg-[#ff2d55] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200 transform hover:scale-105">
+            I Accept the Terms
+        </button>
+    </div>
+
+    <!-- Setup Page -->
+    <div id="setup-container" class="max-w-4xl w-full px-4 text-center py-8 hidden">
+        <!-- Setup Progress Indicator -->
+        <div class="flex justify-center mb-8 relative">
+            <div class="w-2/3 bg-gray-800 h-1 absolute top-1/2 -translate-y-1/2"></div>
+            <div class="flex justify-between relative w-2/3">
+                <div class="setup-step active">
+                    <div class="w-8 h-8 bg-[#ff0d45] rounded-full flex items-center justify-center text-white relative z-10">1</div>
+                    <div class="text-white text-sm mt-2">Theme</div>
+                </div>
+                <div class="setup-step">
+                    <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white relative z-10">2</div>
+                    <div class="text-white text-sm mt-2">Performance</div>
+                </div>
+                <div class="setup-step">
+                    <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white relative z-10">3</div>
+                    <div class="text-white text-sm mt-2">Social</div>
+                </div>
+                <div class="setup-step">
+                    <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white relative z-10">4</div>
+                    <div class="text-white text-sm mt-2">Finish</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Setup Pages Container -->
+        <div id="setup-pages">
+            <!-- Page 1: Theme Selection -->
+            <div class="setup-page active" id="theme-page">
+                <h2 class="text-3xl font-bold mb-4 text-white">Choose Your Theme</h2>
+                <p class="text-gray-400 mb-8">Select a theme that matches your style</p>
+                <div class="theme-selector">
+                    <label class="theme-option bg-gray-800 border-gray-700">
+                        <input type="radio" name="setup-theme" value="dark" checked>
+                        <div class="theme-preview dark-preview"></div>
+                        <span class="text-white">Dark</span>
+                    </label>
+                    <label class="theme-option bg-gray-800 border-gray-700">
+                        <input type="radio" name="setup-theme" value="light">
+                        <div class="theme-preview light-preview"></div>
+                        <span class="text-white">Light</span>
+                    </label>
+                    <label class="theme-option bg-gray-800 border-gray-700">
+                        <input type="radio" name="setup-theme" value="ocean">
+                        <div class="theme-preview ocean-preview"></div>
+                        <span class="text-white">Ocean</span>
+                    </label>
+                </div>
+                <button onclick="nextSetupPage()" 
+                        class="mt-8 bg-[#ff0d45] hover:bg-[#ff2d55] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200 transform hover:scale-105">
+                    Next
+                </button>
+            </div>
+
+            <!-- Page 2: Performance Settings -->
+            <div class="setup-page hidden" id="performance-page">
+                <h2 class="text-3xl font-bold mb-4 text-white">Performance Settings</h2>
+                <p class="text-gray-400 mb-8">Configure your browser's performance</p>
+                <div class="grid grid-cols-1 gap-8 max-w-lg mx-auto">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-lg font-bold mb-2 text-white">CPU Limit</h4>
+                        <input type="range" 
+                               id="setup-cpu-slider" 
+                               class="w-full"
+                               min="0" 
+                               max="100" 
+                               value="100">
+                        <span id="setup-cpu-value" class="text-[#ff0d45]">100%</span>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-lg font-bold mb-2 text-white">RAM Limit</h4>
+                        <input type="range" 
+                               id="setup-ram-slider" 
+                               class="w-full"
+                               min="1" 
+                               max="16" 
+                               value="4">
+                        <span id="setup-ram-value" class="text-[#ff0d45]">4 GB</span>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-lg font-bold text-white">Memory Saver</h4>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="setup-memory-saver" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff0d45]"></div>
+                            </label>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-2">Automatically close inactive tabs to save memory</p>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between">
+                    <button onclick="previousSetupPage()" 
+                            class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200">
+                        Back
+                    </button>
+                    <button onclick="nextSetupPage()" 
+                            class="bg-[#ff0d45] hover:bg-[#ff2d55] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200">
+                        Next
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 3: Social Media Selection -->
+            <div class="setup-page hidden" id="social-page">
+                <h2 class="text-3xl font-bold mb-4 text-white">Social Media Shortcuts</h2>
+                <p class="text-gray-400 mb-8">Select the social media apps you want quick access to</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+                    <label class="social-option bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-all duration-200">
+                        <input type="checkbox" name="social" value="discord" class="hidden">
+                        <div class="flex items-center space-x-3">
+                            <i class="fab fa-discord text-2xl text-[#7289da]"></i>
+                            <span class="text-white">Discord</span>
+                        </div>
+                    </label>
+                    <label class="social-option bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-all duration-200">
+                        <input type="checkbox" name="social" value="twitter" class="hidden">
+                        <div class="flex items-center space-x-3">
+                            <i class="fab fa-twitter text-2xl text-[#1da1f2]"></i>
+                            <span class="text-white">Twitter</span>
+                        </div>
+                    </label>
+                    <label class="social-option bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-all duration-200">
+                        <input type="checkbox" name="social" value="youtube" class="hidden">
+                        <div class="flex items-center space-x-3">
+                            <i class="fab fa-youtube text-2xl text-[#ff0000]"></i>
+                            <span class="text-white">YouTube</span>
+                        </div>
+                    </label>
+                    <label class="social-option bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-all duration-200">
+                        <input type="checkbox" name="social" value="twitch" class="hidden">
+                        <div class="flex items-center space-x-3">
+                            <i class="fab fa-twitch text-2xl text-[#9146ff]"></i>
+                            <span class="text-white">Twitch</span>
+                        </div>
+                    </label>
+                    <label class="social-option bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-all duration-200">
+                        <input type="checkbox" name="social" value="reddit" class="hidden">
+                        <div class="flex items-center space-x-3">
+                            <i class="fab fa-reddit text-2xl text-[#ff4500]"></i>
+                            <span class="text-white">Reddit</span>
+                        </div>
+                    </label>
+                    <label class="social-option bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-all duration-200">
+                        <input type="checkbox" name="social" value="instagram" class="hidden">
+                        <div class="flex items-center space-x-3">
+                            <i class="fab fa-instagram text-2xl text-[#e4405f]"></i>
+                            <span class="text-white">Instagram</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-8 flex justify-between">
+                    <button onclick="previousSetupPage()" 
+                            class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200">
+                        Back
+                    </button>
+                    <button onclick="nextSetupPage()" 
+                            class="bg-[#ff0d45] hover:bg-[#ff2d55] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200">
+                        Next
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page 4: Final Setup -->
+            <div class="setup-page hidden" id="final-page">
+                <h2 class="text-3xl font-bold mb-4 text-white">Ready to Go!</h2>
+                <p class="text-gray-400 mb-8">Your browser is set up just the way you like it</p>
+                <div class="bg-gray-800 p-6 rounded-lg mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-white">Your Selections</h3>
+                    <div id="setup-summary" class="text-left space-y-4">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between">
+                    <button onclick="previousSetupPage()" 
+                            class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200">
+                        Back
+                    </button>
+                    <button onclick="completeSetup()" 
+                            class="bg-[#ff0d45] hover:bg-[#ff2d55] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-200">
+                        Start Browsing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="gx-sidebar">
+    <div class="gx-sidebar-item" onclick="goHome()">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="toggleBookmarks()">
+        <i class="fas fa-bookmark"></i>
+        <span>Bookmarks</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="showHistory()">
+        <i class="fas fa-history"></i>
+        <span>History</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="toggleSettings()">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="createQRCode()">
+        <i class="fas fa-qrcode"></i>
+        <span>QR Code</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="toggleInspectMode()">
+        <i class="fas fa-code"></i>
+        <span>Inspect</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="toggleFullscreen()">
+        <i class="fas fa-expand"></i>
+        <span>Fullscreen</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="togglePerformancePanel()">
+        <i class="fas fa-microchip"></i>
+        <span>Performance</span>
+    </div>
+    <div class="gx-sidebar-item" onclick="toggleMemorySaver()">
+        <i class="fas fa-memory"></i>
+        <span>Memory Saver</span>
+    </div>
+    <div class="gx-sidebar-item mt-auto" onclick="toggleAccountPanel()">
+      <i class="fas fa-user-circle"></i>
+      <span>Account</span>
+    </div>
+  </div>
+
+  <!-- Tab Bar - Moved above toolbar -->
+  <div id="tab-bar" class="bg-gray-200 flex items-center sm:flex" style="display: none;">
+    <div id="tabs-container" class="flex-1 flex overflow-x-auto">
+      <!-- Tabs will be dynamically created here -->
+    </div>
+    <button onclick="createNewTab()" class="p-1 hover:bg-gray-300 rounded-lg">
+      <i class="fas fa-plus text-gray-600 text-sm"></i>
+    </button>
   </div>
 
   <!-- Browser Header -->
@@ -808,16 +1168,6 @@
 
   <div id="loading-bar"></div>
 
-  <!-- Tab Bar -->
-  <div id="tab-bar" class="bg-gray-200 flex items-center sm:flex" style="display: none;">
-    <div id="tabs-container" class="flex-1 flex overflow-x-auto">
-      <!-- Tabs will be dynamically created here -->
-    </div>
-    <button onclick="createNewTab()" class="p-1 hover:bg-gray-300 rounded-lg">
-      <i class="fas fa-plus text-gray-600 text-sm"></i>
-    </button>
-  </div>
-
   <!-- Browser Content -->
   <main id="iframe-container" class="flex-1 bg-white relative overflow-hidden">
     <!-- Browser Home Page -->
@@ -839,11 +1189,36 @@
       </div>
 
       <!-- Recent Bookmarks -->
-      <div class="w-full max-w-4xl px-4">
+      <div class="w-full max-w-4xl px-4 mb-12">
         <h2 class="text-xl font-semibold mb-4 text-gray-300">Recent Bookmarks</h2>
         <div id="home-bookmarks" class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <!-- Bookmarks will be populated here -->
         </div>
+      </div>
+
+      <!-- News Section -->
+      <div class="w-full max-w-4xl px-4 mb-12">
+        <h2 class="text-xl font-semibold mb-4 text-gray-300">Today's News</h2>
+        <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="animate-pulse bg-gray-800 rounded-lg p-4">
+            <div class="h-48 bg-gray-700 rounded mb-4"></div>
+            <div class="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-700 rounded w-1/2"></div>
+          </div>
+          <div class="animate-pulse bg-gray-800 rounded-lg p-4">
+            <div class="h-48 bg-gray-700 rounded mb-4"></div>
+            <div class="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-700 rounded w-1/2"></div>
+          </div>
+          <div class="animate-pulse bg-gray-800 rounded-lg p-4">
+            <div class="h-48 bg-gray-700 rounded mb-4"></div>
+            <div class="h-4 bg-gray-700 rounded w-3/4 mb-2"></div>
+            <div class="h-4 bg-gray-700 rounded w-1/2"></div>
+          </div>
+        </div>
+        <button id="load-more-news" class="mt-6 px-6 py-3 bg-[#ff0d45] hover:bg-[#ff2d55] text-white rounded-full mx-auto block">
+          Load More News
+        </button>
       </div>
     </div>
   </main>
@@ -903,7 +1278,7 @@
         <div class="border-b pb-4">
           <div class="flex justify-between items-center px-3 mb-3">
             <h3 class="text-sm font-medium">Bookmarks</h3>
-            <button onclick="deleteAllBookmarks()" class="text-red-500 text-xs hover:bg-red-50 p-1 rounded">
+            <button onclick="deleteAllBookmarks()" class="text-red-500 text-xs hover:bg-red-500 p-1 rounded">
               <i class="fas fa-trash-alt mr-1"></i>Delete All
             </button>
           </div>
@@ -1000,6 +1375,85 @@
     </div>
   </div>
 
+  <!-- Performance Control Panel -->
+  <div id="performance-panel" class="fixed top-0 right-0 w-80 h-full bg-[#1f1f27] text-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+    <div class="p-4">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-bold text-[#ff0d45]">Performance Control</h2>
+        <button onclick="togglePerformancePanel()" class="text-gray-400 hover:text-white">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- CPU Limiter -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-lg">CPU Limiter</h3>
+          <span id="cpu-value" class="text-[#ff0d45]">100%</span>
+        </div>
+        <input type="range" 
+               id="cpu-slider" 
+               class="w-full h-2 bg-[#35363a] rounded-lg appearance-none cursor-pointer"
+               min="0" 
+               max="100" 
+               value="100"
+               onchange="updateCPULimit(this.value)">
+      </div>
+
+      <!-- RAM Limiter -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-lg">RAM Limiter</h3>
+          <span id="ram-value" class="text-[#ff0d45]">4 GB</span>
+        </div>
+        <input type="range" 
+               id="ram-slider" 
+               class="w-full h-2 bg-[#35363a] rounded-lg appearance-none cursor-pointer"
+               min="1" 
+               max="16" 
+               value="4"
+               onchange="updateRAMLimit(this.value)">
+      </div>
+
+      <!-- Memory Saver -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg">Memory Saver</h3>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="memory-saver-toggle" class="sr-only peer" onchange="toggleMemorySaver()">
+            <div class="w-11 h-6 bg-[#35363a] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff0d45]"></div>
+          </label>
+        </div>
+        <p class="text-sm text-gray-400 mt-2">Automatically close inactive tabs after 1 minute to save memory</p>
+      </div>
+
+      <!-- Performance Stats -->
+      <div class="bg-[#35363a] rounded-lg p-4">
+        <h3 class="text-lg mb-4">Current Usage</h3>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>CPU Usage</span>
+              <span id="current-cpu-usage">0%</span>
+            </div>
+            <div class="w-full bg-[#1f1f27] rounded-full h-2">
+              <div id="cpu-usage-bar" class="bg-[#ff0d45] h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>RAM Usage</span>
+              <span id="current-ram-usage">0 GB</span>
+            </div>
+            <div class="w-full bg-[#1f1f27] rounded-full h-2">
+              <div id="ram-usage-bar" class="bg-[#ff0d45] h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="qr-code-modal">
     <div id="qr-code-container">
         <div id="qr-code"></div>
@@ -1022,6 +1476,119 @@
     <div class="context-menu-item" onclick="showPerformanceInfo()">
       <i class="fas fa-chart-line"></i>
       Performance
+    </div>
+  </div>
+
+  <div id="account-panel" class="fixed top-0 right-0 w-full h-full bg-[#17171c] text-white transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+    <div class="p-6 max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-bold text-[#ff0d45]">Account Settings</h2>
+        <button onclick="toggleAccountPanel()" class="text-gray-400 hover:text-white">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Main Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- VPN Section -->
+        <div class="bg-[#1f1f27] rounded-lg p-6">
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <h3 class="text-xl font-bold mb-2">VPN</h3>
+              <p class="text-gray-400">Secure your connection</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="vpn-toggle" class="sr-only peer" onchange="toggleVPN()">
+              <div class="w-11 h-6 bg-[#35363a] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff0d45]"></div>
+            </label>
+          </div>
+          <select id="vpn-location" class="w-full bg-[#35363a] text-white rounded p-2 mt-4">
+            <option value="auto">Best Location (Auto)</option>
+            <option value="us">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="jp">Japan</option>
+            <option value="de">Germany</option>
+          </select>
+        </div>
+
+        <!-- Ad Blocker Section -->
+        <div class="bg-[#1f1f27] rounded-lg p-6">
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Ad Blocker</h3>
+              <p class="text-gray-400">Block unwanted ads</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="adblocker-toggle" class="sr-only peer" onchange="toggleAdBlocker()">
+              <div class="w-11 h-6 bg-[#35363a] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff0d45]"></div>
+            </label>
+          </div>
+          <div class="text-sm text-gray-400 mt-4">
+            Ads blocked today: <span id="ads-blocked" class="text-[#ff0d45]">0</span>
+          </div>
+        </div>
+
+        <!-- Data Saver Section -->
+        <div class="bg-[#1f1f27] rounded-lg p-6">
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Data Saver</h3>
+              <p class="text-gray-400">Reduce data usage</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="data-saver-toggle" class="sr-only peer" onchange="toggleDataSaver()">
+              <div class="w-11 h-6 bg-[#35363a] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff0d45]"></div>
+            </label>
+          </div>
+          <div class="text-sm text-gray-400 mt-4">
+            Data saved: <span id="data-saved" class="text-[#ff0d45]">0 MB</span>
+          </div>
+        </div>
+
+        <!-- Night Mode Section -->
+        <div class="bg-[#1f1f27] rounded-lg p-6">
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Night Mode</h3>
+              <p class="text-gray-400">Reduce eye strain</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="night-mode-toggle" class="sr-only peer" onchange="toggleNightMode()">
+              <div class="w-11 h-6 bg-[#35363a] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff0d45]"></div>
+            </label>
+          </div>
+          <input type="range" 
+                 id="night-mode-intensity" 
+                 class="w-full h-2 bg-[#35363a] rounded-lg appearance-none cursor-pointer mt-4"
+                 min="0" 
+                 max="100" 
+                 value="50"
+                 onchange="updateNightMode(this.value)">
+        </div>
+
+        <!-- Additional Features -->
+        <div class="bg-[#1f1f27] rounded-lg p-6 md:col-span-2">
+          <h3 class="text-xl font-bold mb-4">Additional Features</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button onclick="togglePopupBlocker()" class="bg-[#35363a] hover:bg-[#ff0d45] transition-colors duration-200 p-4 rounded-lg text-left">
+              <i class="fas fa-ban mb-2"></i>
+              <h4 class="font-bold">Popup Blocker</h4>
+              <p class="text-sm text-gray-400">Block unwanted popups</p>
+            </button>
+            <button onclick="toggleTrackingProtection()" class="bg-[#35363a] hover:bg-[#ff0d45] transition-colors duration-200 p-4 rounded-lg text-left">
+              <i class="fas fa-shield-alt mb-2"></i>
+              <h4 class="font-bold">Tracking Protection</h4>
+              <p class="text-sm text-gray-400">Stop trackers</p>
+            </button>
+            <button onclick="toggleHttpsOnly()" class="bg-[#35363a] hover:bg-[#ff0d45] transition-colors duration-200 p-4 rounded-lg text-left">
+              <i class="fas fa-lock mb-2"></i>
+              <h4 class="font-bold">HTTPS-Only Mode</h4>
+              <p class="text-sm text-gray-400">Force secure connections</p>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1354,7 +1921,7 @@
 
     function loadBookmarks() {
         const bookmarkEntriesContainer = document.getElementById('bookmark-entries');
-        bookmarkEntriesContainer.innerHTML = '';
+        bookmarkEntriesContainer.innerHTML = ''; // Clear previous entries
 
         bookmarks.forEach(bookmark => {
             try {
@@ -1419,16 +1986,30 @@
     }
 
     function initializeThemeHandlers() {
+        // Safely retrieve theme options and saved theme
         const themeOptions = document.querySelectorAll('.theme-option');
         
-        const savedTheme = localStorage.getItem('browser-theme') || 'light';
-        document.querySelector(`#theme-${savedTheme}`).classList.add('selected');
-        applyTheme(savedTheme);
+        if (themeOptions.length === 0) {
+            console.warn('No theme options found. Skipping theme initialization.');
+            return;
+        }
+
+        const savedTheme = localStorage.getItem('browser-theme') || 'dark';
+        
+        // Use optional chaining and nullish coalescing for safer selection
+        const selectedThemeElement = document.querySelector(`#theme-${savedTheme}`) || themeOptions[0];
+        
+        if (selectedThemeElement) {
+            selectedThemeElement.classList.add('selected');
+            applyTheme(savedTheme);
+        }
 
         themeOptions.forEach(option => {
             option.addEventListener('click', (e) => {
+                // Remove selected class from all options
                 themeOptions.forEach(opt => opt.classList.remove('selected'));
                 
+                // Add selected class to clicked option
                 option.classList.add('selected');
                 
                 const selectedTheme = option.getAttribute('data-theme');
@@ -1438,6 +2019,7 @@
         });
     }
 
+    // Use DOMContentLoaded to ensure all elements are loaded
     document.addEventListener('DOMContentLoaded', initializeThemeHandlers);
 
     document.addEventListener('keydown', function(event) {
@@ -1645,6 +2227,7 @@
         navigateToUrl('about:home');
         document.getElementById('browser-home').style.display = 'flex';
         displayHomeBookmarks();
+        loadNews(1); // Reset and reload news when returning home
     }
 
     function reloadTab() {
@@ -2118,6 +2701,543 @@
 
       // Close context menu
       document.getElementById('custom-context-menu').style.display = 'none';
+    }
+    
+    let cpuLimit = 100;
+    let ramLimit = 4;
+    let isMemorySaverEnabled = false;
+    let inactiveTabTimers = {};
+
+    function togglePerformancePanel() {
+        const panel = document.getElementById('performance-panel');
+        panel.classList.toggle('translate-x-full');
+        
+        if (!panel.classList.contains('translate-x-full')) {
+            // Start updating usage stats when panel is open
+            updateUsageStats();
+        }
+    }
+
+    function updateCPULimit(value) {
+        cpuLimit = parseInt(value);
+        document.getElementById('cpu-value').textContent = `${value}%`;
+        applyPerformanceLimits();
+    }
+
+    function updateRAMLimit(value) {
+        ramLimit = parseInt(value);
+        document.getElementById('ram-value').textContent = `${value} GB`;
+        applyPerformanceLimits();
+    }
+
+    function applyPerformanceLimits() {
+        // Simulate performance limits by throttling tab updates
+        document.querySelectorAll('iframe').forEach(iframe => {
+            iframe.style.animationDuration = `${100 / cpuLimit}s`;
+        });
+    }
+
+    function updateUsageStats() {
+        // Simulate CPU and RAM usage with random values
+        const cpuUsage = Math.floor(Math.random() * cpuLimit);
+        const ramUsage = (Math.random() * ramLimit).toFixed(1);
+        
+        document.getElementById('current-cpu-usage').textContent = `${cpuUsage}%`;
+        document.getElementById('current-ram-usage').textContent = `${ramUsage} GB`;
+        
+        document.getElementById('cpu-usage-bar').style.width = `${cpuUsage}%`;
+        document.getElementById('ram-usage-bar').style.width = `${(ramUsage / ramLimit) * 100}%`;
+        
+        if (!document.getElementById('performance-panel').classList.contains('translate-x-full')) {
+            setTimeout(updateUsageStats, 1000);
+        }
+    }
+
+    function toggleMemorySaver() {
+        isMemorySaverEnabled = document.getElementById('memory-saver-toggle').checked;
+        
+        if (isMemorySaverEnabled) {
+            startInactiveTabMonitoring();
+        } else {
+            stopInactiveTabMonitoring();
+        }
+    }
+
+    function startInactiveTabMonitoring() {
+        // Clear any existing timers
+        Object.values(inactiveTabTimers).forEach(timer => clearTimeout(timer));
+        inactiveTabTimers = {};
+        
+        // Set up new timers for all tabs except the active one
+        document.querySelectorAll('.tab-hover').forEach(tab => {
+            const tabId = tab.getAttribute('data-tab');
+            if (tabId !== currentTabId) {
+                setInactiveTabTimer(tabId);
+            }
+        });
+    }
+
+    function stopInactiveTabMonitoring() {
+        Object.values(inactiveTabTimers).forEach(timer => clearTimeout(timer));
+        inactiveTabTimers = {};
+    }
+
+    function setInactiveTabTimer(tabId) {
+        // Clear existing timer if any
+        if (inactiveTabTimers[tabId]) {
+            clearTimeout(inactiveTabTimers[tabId]);
+        }
+        
+        // Set new timer
+        inactiveTabTimers[tabId] = setTimeout(() => {
+            if (tabId !== currentTabId && isMemorySaverEnabled) {
+                const tabElement = document.querySelector(`[data-tab="${tabId}"]`);
+                if (tabElement) {
+                    removeTab(tabElement.querySelector('.close-tab'), new Event('click'));
+                    
+                    // Show notification
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed bottom-4 right-4 bg-[#1f1f27] text-white px-4 py-2 rounded-lg shadow-lg z-50';
+                    notification.textContent = 'Inactive tab closed to save memory';
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => notification.remove(), 3000);
+                }
+            }
+        }, 60000); // 1 minute
+    }
+
+    // Update tab monitoring when switching tabs
+    const originalActivateTab = activateTab;
+    activateTab = function(tabElement) {
+        originalActivateTab(tabElement);
+        
+        if (isMemorySaverEnabled) {
+            const tabId = tabElement.getAttribute('data-tab');
+            Object.entries(inactiveTabTimers).forEach(([id, timer]) => {
+                if (id !== tabId) {
+                    setInactiveTabTimer(id);
+                }
+            });
+        }
+    };
+
+    // Add monitoring for new tabs
+    const originalCreateNewTab = createNewTab;
+    createNewTab = function(url = null) {
+        const tabId = originalCreateNewTab(url);
+        if (isMemorySaverEnabled && tabId !== currentTabId) {
+            setInactiveTabTimer(tabId);
+        }
+        return tabId;
+    };
+
+    // Add these functions to your existing script
+    function startAnimation() {
+        const animationContainer = document.getElementById('animation-container');
+        const termsContainer = document.getElementById('terms-container');
+        
+        // Show animation for 2 seconds
+        setTimeout(() => {
+            animationContainer.style.animation = 'fadeOut 0.5s ease-in-out forwards';
+            setTimeout(() => {
+                animationContainer.style.display = 'none';
+                termsContainer.classList.remove('hidden');
+                termsContainer.style.animation = 'fadeIn 0.5s ease-in-out forwards';
+            }, 500);
+        }, 2000);
+    }
+
+    function acceptTerms() {
+        const termsContainer = document.getElementById('terms-container');
+        const setupContainer = document.getElementById('setup-container');
+        
+        termsContainer.style.animation = 'fadeOut 0.5s ease-in-out forwards';
+        setTimeout(() => {
+            termsContainer.classList.add('hidden');
+            setupContainer.classList.remove('hidden');
+            setupContainer.style.animation = 'fadeIn 0.5s ease-in-out forwards';
+        }, 500);
+    }
+
+    function completeSetup() {
+        // Save setup preferences
+        const selectedTheme = document.querySelector('input[name="setup-theme"]:checked').value;
+        const cpuLimit = document.getElementById('setup-cpu-slider').value;
+        const ramLimit = document.getElementById('setup-ram-slider').value;
+        const memorySaver = document.getElementById('setup-memory-saver').checked;
+        
+        // Apply settings
+        applyTheme(selectedTheme);
+        updateCPULimit(cpuLimit);
+        updateRAMLimit(ramLimit);
+        document.getElementById('memory-saver-toggle').checked = memorySaver;
+        toggleMemorySaver();
+        
+        // Start browser
+        startBrowser();
+    }
+
+    // Update your existing DOMContentLoaded event
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeTabBar();
+        createNewTab();
+        startAnimation();
+        
+        // Setup event listeners for setup sliders
+        document.getElementById('setup-cpu-slider').addEventListener('input', function() {
+            document.getElementById('setup-cpu-value').textContent = this.value + '%';
+        });
+        
+        document.getElementById('setup-ram-slider').addEventListener('input', function() {
+            document.getElementById('setup-ram-value').textContent = this.value + ' GB';
+        });
+    });
+
+    // Add these styles to your existing styles
+    const newStyles = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        #animation-container img {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    `;
+
+    // Add the new styles to the document
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = newStyles;
+    document.head.appendChild(styleSheet);
+
+    // Add these new functions for news functionality
+    let newsPage = 1;
+    const newsPerPage = 9;
+
+    async function fetchNews(page = 1) {
+        try {
+            const response = await fetch(`https://api.bing.microsoft.com/v7.0/news/search?q=trending&count=${newsPerPage}&offset=${(page - 1) * newsPerPage}`, {
+                headers: {
+                    'Ocp-Apim-Subscription-Key': 'YOUR_BING_API_KEY' // This would need to be replaced with a real API key
+                }
+            });
+
+            // For demo purposes, generate mock news if API is not available
+            if (!response.ok) {
+                return generateMockNews();
+            }
+
+            const data = await response.json();
+            return data.value;
+        } catch (error) {
+            console.error('Error fetching news:', error);
+            return generateMockNews();
+        }
+    }
+
+    function generateMockNews() {
+        const mockNews = [];
+        const topics = ['Technology', 'Science', 'Health', 'Business', 'Entertainment', 'Sports'];
+        
+        for (let i = 0; i < newsPerPage; i++) {
+            const topic = topics[Math.floor(Math.random() * topics.length)];
+            mockNews.push({
+                name: `Latest ${topic} News Story ${Math.floor(Math.random() * 1000)}`,
+                description: `This is a sample news article about ${topic.toLowerCase()} and its impact on our daily lives.`,
+                url: 'https://www.bing.com/news',
+                image: {
+                    thumbnail: {
+                        contentUrl: `https://picsum.photos/seed/${Math.random()}/400/300`
+                    }
+                },
+                datePublished: new Date(Date.now() - Math.random() * 86400000).toISOString()
+            });
+        }
+        
+        return mockNews;
+    }
+
+    function displayNews(newsItems) {
+        const newsContainer = document.getElementById('news-container');
+        
+        newsItems.forEach(news => {
+            const newsCard = document.createElement('div');
+            newsCard.className = 'bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-colors duration-200 cursor-pointer';
+            newsCard.innerHTML = `
+                <img src="${news.image?.thumbnail?.contentUrl || `https://picsum.photos/seed/${Math.random()}/400/300`}" 
+                     alt="${news.name}"
+                     class="w-full h-48 object-cover"
+                     onerror="this.src='https://picsum.photos/400/300'">
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2 line-clamp-2">${news.name}</h3>
+                    <p class="text-gray-400 text-sm mb-2 line-clamp-3">${news.description}</p>
+                    <p class="text-gray-500 text-xs">${new Date(news.datePublished).toLocaleDateString()}</p>
+                </div>
+            `;
+            
+            newsCard.addEventListener('click', () => {
+                navigateToUrl(news.url);
+            });
+            
+            newsContainer.appendChild(newsCard);
+        });
+    }
+
+    async function loadNews(page = 1) {
+        const newsItems = await fetchNews(page);
+        if (page === 1) {
+            document.getElementById('news-container').innerHTML = '';
+        }
+        displayNews(newsItems);
+    }
+
+    // Add to your existing DOMContentLoaded event listener
+    document.addEventListener('DOMContentLoaded', () => {
+        // ... existing initialization code ...
+        
+        // Initialize news
+        loadNews();
+        
+        // Add load more news handler
+        document.getElementById('load-more-news').addEventListener('click', () => {
+            newsPage++;
+            loadNews(newsPage);
+        });
+    });
+
+    // Add this to your goHome function
+    function goHome() {
+        navigateToUrl('about:home');
+        document.getElementById('browser-home').style.display = 'flex';
+        displayHomeBookmarks();
+        loadNews(1); // Reset and reload news when returning home
+    }
+
+    // Add these new functions for the account panel features
+    function toggleAccountPanel() {
+      const panel = document.getElementById('account-panel');
+      panel.classList.toggle('translate-x-full');
+    }
+
+    // VPN functionality
+    function toggleVPN() {
+      const vpnToggle = document.getElementById('vpn-toggle');
+      const vpnLocation = document.getElementById('vpn-location');
+      
+      if (vpnToggle.checked) {
+        showNotification('VPN Connected: ' + vpnLocation.value);
+      } else {
+        showNotification('VPN Disconnected');
+      }
+    }
+
+    // Ad Blocker functionality
+    let adsBlocked = 0;
+    function toggleAdBlocker() {
+      const adBlockerToggle = document.getElementById('adblocker-toggle');
+      
+      if (adBlockerToggle.checked) {
+        // Simulate ad blocking
+        setInterval(() => {
+          if (adBlockerToggle.checked) {
+            adsBlocked += Math.floor(Math.random() * 3);
+            document.getElementById('ads-blocked').textContent = adsBlocked;
+          }
+        }, 30000);
+        showNotification('Ad Blocker Enabled');
+      } else {
+        showNotification('Ad Blocker Disabled');
+      }
+    }
+
+    // Data Saver functionality
+    let dataSaved = 0;
+    function toggleDataSaver() {
+      const dataSaverToggle = document.getElementById('data-saver-toggle');
+      
+      if (dataSaverToggle.checked) {
+        // Simulate data saving
+        setInterval(() => {
+          if (dataSaverToggle.checked) {
+            dataSaved += Math.floor(Math.random() * 5);
+            document.getElementById('data-saved').textContent = dataSaved + ' MB';
+          }
+        }, 60000);
+        showNotification('Data Saver Enabled');
+      } else {
+        showNotification('Data Saver Disabled');
+      }
+    }
+
+    // Night Mode functionality
+    function toggleNightMode() {
+      const nightModeToggle = document.getElementById('night-mode-toggle');
+      const intensity = document.getElementById('night-mode-intensity').value;
+      
+      if (nightModeToggle.checked) {
+        updateNightMode(intensity);
+        showNotification('Night Mode Enabled');
+      } else {
+        document.documentElement.style.filter = 'none';
+        showNotification('Night Mode Disabled');
+      }
+    }
+
+    function updateNightMode(intensity) {
+      if (document.getElementById('night-mode-toggle').checked) {
+        const warmth = intensity / 100;
+        document.documentElement.style.filter = `brightness(${1 - warmth * 0.4}) sepia(${warmth * 0.4})`;
+      }
+    }
+
+    // Additional features
+    function togglePopupBlocker() {
+      showNotification('Popup Blocker toggled');
+    }
+
+    function toggleTrackingProtection() {
+      showNotification('Tracking Protection toggled');
+    }
+
+    function toggleHttpsOnly() {
+      showNotification('HTTPS-Only Mode toggled');
+    }
+
+    // Notification helper
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'fixed bottom-4 right-4 bg-[#1f1f27] text-white px-4 py-2 rounded-lg shadow-lg z-50';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => notification.remove(), 3000);
+    }
+
+    // Add these functions to handle setup page navigation
+    let currentSetupPage = 0;
+    const setupPages = ['theme-page', 'performance-page', 'social-page', 'final-page'];
+
+    function nextSetupPage() {
+        const currentPage = document.getElementById(setupPages[currentSetupPage]);
+        const nextPage = document.getElementById(setupPages[currentSetupPage + 1]);
+
+        if (nextPage) {
+            // Hide current page
+            currentPage.classList.remove('active');
+            currentPage.classList.add('hidden');
+
+            // Show next page
+            nextPage.classList.remove('hidden');
+            nextPage.classList.add('active');
+
+            // Update progress indicator
+            updateSetupProgress(currentSetupPage + 1);
+
+            currentSetupPage++;
+        }
+
+        // Update final page summary when reaching last page
+        if (currentSetupPage === setupPages.length - 1) {
+            updateSetupSummary();
+        }
+    }
+
+    function previousSetupPage() {
+        const currentPage = document.getElementById(setupPages[currentSetupPage]);
+        const previousPage = document.getElementById(setupPages[currentSetupPage - 1]);
+
+        if (previousPage) {
+            // Hide current page
+            currentPage.classList.remove('active');
+            currentPage.classList.add('hidden');
+
+            // Show previous page
+            previousPage.classList.remove('hidden');
+            previousPage.classList.add('active');
+
+            // Update progress indicator
+            updateSetupProgress(currentSetupPage - 1);
+
+            currentSetupPage--;
+        }
+    }
+
+    function updateSetupProgress(pageIndex) {
+        const setupSteps = document.querySelectorAll('.setup-step');
+        setupSteps.forEach((step, index) => {
+            if (index <= pageIndex) {
+                step.querySelector('div').classList.remove('bg-gray-800');
+                step.querySelector('div').classList.add('bg-[#ff0d45]');
+            } else {
+                step.querySelector('div').classList.remove('bg-[#ff0d45]');
+                step.querySelector('div').classList.add('bg-gray-800');
+            }
+        });
+    }
+
+    function updateSetupSummary() {
+        const setupSummary = document.getElementById('setup-summary');
+        setupSummary.innerHTML = ''; // Clear previous summary
+
+        // Theme Summary
+        const selectedTheme = document.querySelector('input[name="setup-theme"]:checked').value;
+        const themeSummary = document.createElement('div');
+        themeSummary.innerHTML = `
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-palette text-[#ff0d45]"></i>
+                <span>Theme: ${selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)}</span>
+            </div>
+        `;
+        setupSummary.appendChild(themeSummary);
+
+        // Performance Summary
+        const cpuLimit = document.getElementById('setup-cpu-slider').value;
+        const ramLimit = document.getElementById('setup-ram-slider').value;
+        const memorySaver = document.getElementById('setup-memory-saver').checked;
+
+        const performanceSummary = document.createElement('div');
+        performanceSummary.innerHTML = `
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-microchip text-[#ff0d45]"></i>
+                <span>CPU Limit: ${cpuLimit}%</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-memory text-[#ff0d45]"></i>
+                <span>RAM Limit: ${ramLimit} GB</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-save text-[#ff0d45]"></i>
+                <span>Memory Saver: ${memorySaver ? 'Enabled' : 'Disabled'}</span>
+            </div>
+        `;
+        setupSummary.appendChild(performanceSummary);
+
+        // Social Media Summary
+        const selectedSocialApps = Array.from(document.querySelectorAll('input[name="social"]:checked'))
+            .map(input => input.value);
+
+        if (selectedSocialApps.length > 0) {
+            const socialSummary = document.createElement('div');
+            socialSummary.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-share-alt text-[#ff0d45]"></i>
+                    <span>Social Apps: ${selectedSocialApps.map(app => app.charAt(0).toUpperCase() + app.slice(1)).join(', ')}</span>
+                </div>
+            `;
+            setupSummary.appendChild(socialSummary);
+        }
     }
   </script>
 </body>
